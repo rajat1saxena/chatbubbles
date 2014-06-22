@@ -1,0 +1,97 @@
+﻿<Page
+    x:Class="WP_nosilverlight_App.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WP_nosilverlight_App"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <DataTemplate x:Name="ToTemplate">
+            <Grid>
+                <Grid x:Name="ToBubble" HorizontalAlignment="Right" Margin="0" VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+                    <Grid Margin="0" Background="{StaticResource PhoneAccentBrush}" Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Foreground="White" Text="{Binding TextMessage}" x:Name="MainText" TextWrapping="Wrap" Grid.Row="0" Width="300" FontSize="21.333" Padding="10,5,10,5">
+
+                        </TextBlock>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Opacity="0.8" Foreground="White" Text="{Binding Time}" x:Name="timeText" Margin="0" TextWrapping="Wrap" Grid.Row="0" Padding="10" Grid.Column="0"/>
+                            <TextBlock Opacity="0.8" Foreground="White" Text="{Binding Status}" x:Name="status" Margin="0" TextWrapping="Wrap" Grid.Row="0" Padding="10" Grid.Column="1" HorizontalAlignment="Right"/>
+                        </Grid>
+
+                    </Grid>
+                    <Path Grid.Row="1"  Data="M404,136 L404,149.5 L387.5,134.5 z" Fill="{StaticResource PhoneAccentBrush}" HorizontalAlignment="Right" Height="20" Stretch="Fill" UseLayoutRounding="False" Width="20" Margin="0,-5,10,0"/>
+                </Grid>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Name="FromTemplate">
+            <Grid x:Name="FromBubble" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Path Grid.Row="0"  Data="M404,136 L404,149.5 L387.5,134.5 z" Fill="{StaticResource PhoneAccentBrush}" HorizontalAlignment="Left" Height="20" Stretch="Fill" UseLayoutRounding="False" Width="20" Margin="10,2,10,0" RenderTransformOrigin="0.5,0.5">
+                    <Path.RenderTransform>
+                        <CompositeTransform Rotation="-179.206"/>
+                    </Path.RenderTransform>
+                </Path>
+                <Grid Margin="0" Background="{StaticResource PhoneAccentBrush}" Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Foreground="White" Text="{Binding TextMessage}" x:Name="MainText2" TextWrapping="Wrap" Grid.Row="0" Width="300" FontSize="21.333" Padding="10,5,10,5">
+                		
+                    </TextBlock>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Opacity="0.8" Foreground="White" Text="{Binding Time}" x:Name="timeText2" Margin="0" TextWrapping="Wrap" Grid.Row="0" Padding="10" Grid.Column="0"/>
+                    </Grid>
+
+                </Grid>
+
+            </Grid>
+        </DataTemplate>
+        <local:ChatBubbleSelector x:Key="ChatBubbleTemplateSelector" toBubble="{StaticResource ToTemplate}" fromBubble="{StaticResource FromTemplate}"></local:ChatBubbleSelector>
+    </Page.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="My Chat Window" Margin="12,10,0,0" FontSize="30"></TextBlock>
+        <ListBox Height="550" Background="Black" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Auto" x:Name="myChat" ItemTemplateSelector="{StaticResource ChatBubbleTemplateSelector}">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                    <Setter Property="IsHitTestVisible" Value="False"></Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+    </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Add" Label="me bubble" x:Name="meClick" Click="meClick_Click"></AppBarButton>
+            <AppBarButton Icon="Add" Label="you bubble" x:Name="youClick" Click="youClick_Click"></AppBarButton>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>
